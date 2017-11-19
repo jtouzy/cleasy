@@ -1,15 +1,16 @@
-package com.jtouzy.cleasy.processing;
+package com.jtouzy.cleasy.launch;
 
-import com.jtouzy.cleasy.Cleasy;
+import com.jtouzy.cleasy.CleasyContext;
 import com.jtouzy.cleasy.configuration.Configuration;
-import com.jtouzy.cleasy.metadata.CommandDescription;
-import com.jtouzy.cleasy.processing.cli.CLProcessing;
-import com.jtouzy.cleasy.processing.cli.CLProcessingException;
+import com.jtouzy.cleasy.cli.CommandDescription;
+import com.jtouzy.cleasy.cli.CLProcessing;
+import com.jtouzy.cleasy.cli.CLProcessingException;
 
 public class Launcher {
     public static final boolean launch(String args[]) {
         try {
-            Configuration configuration = Cleasy.getConfiguration();
+            CleasyContext.initialize();
+            Configuration configuration = CleasyContext.getConfiguration();
             CLProcessing processor = new CLProcessing(configuration);
             return launchFromCommandDescription(processor.process(args));
         } catch (CLProcessingException e) {

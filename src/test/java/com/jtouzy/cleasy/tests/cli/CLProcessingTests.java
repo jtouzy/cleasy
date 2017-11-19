@@ -1,11 +1,11 @@
-package com.jtouzy.cleasy.tests.processing;
+package com.jtouzy.cleasy.tests.cli;
 
 import com.google.common.collect.Lists;
 import com.jtouzy.cleasy.configuration.Configuration;
 import com.jtouzy.cleasy.configuration.DefaultConfiguration;
-import com.jtouzy.cleasy.metadata.CommandDescription;
-import com.jtouzy.cleasy.processing.cli.CLProcessing;
-import com.jtouzy.cleasy.processing.cli.CLProcessingException;
+import com.jtouzy.cleasy.cli.CommandDescription;
+import com.jtouzy.cleasy.cli.CLProcessing;
+import com.jtouzy.cleasy.cli.CLProcessingException;
 import org.junit.Assert;
 import org.junit.Test;
 

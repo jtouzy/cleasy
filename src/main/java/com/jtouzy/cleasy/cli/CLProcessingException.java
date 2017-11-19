@@ -1,4 +1,4 @@
-package com.jtouzy.cleasy.processing.cli;
+package com.jtouzy.cleasy.cli;
 
 public class CLProcessingException extends Exception {
     public CLProcessingException(String message) {

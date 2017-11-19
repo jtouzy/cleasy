@@ -1,4 +1,4 @@
-package com.jtouzy.cleasy.metadata;
+package com.jtouzy.cleasy.cli;
 
 import java.util.Map;
 

@@ -1,6 +1,6 @@
 package com.jtouzy.cleasy;
 
-import com.jtouzy.cleasy.processing.Launcher;
+import com.jtouzy.cleasy.launch.Launcher;
 
 public class CleasyEntryPoint {
     public static void main(String[] args) {

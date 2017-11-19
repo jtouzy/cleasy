@@ -1,7 +1,6 @@
-package com.jtouzy.cleasy.processing.cli;
+package com.jtouzy.cleasy.cli;
 
 import com.jtouzy.cleasy.configuration.Configuration;
-import com.jtouzy.cleasy.metadata.CommandDescription;
 
 import java.util.*;
 

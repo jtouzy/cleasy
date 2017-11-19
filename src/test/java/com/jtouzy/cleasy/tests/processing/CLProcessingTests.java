@@ -1,4 +1,4 @@
-package com.jtouzy.cleasy.processing;
+package com.jtouzy.cleasy.tests.processing;
 
 import com.google.common.collect.Lists;
 import com.jtouzy.cleasy.configuration.Configuration;

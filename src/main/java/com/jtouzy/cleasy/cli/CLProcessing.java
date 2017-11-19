@@ -1,21 +1,21 @@
 package com.jtouzy.cleasy.cli;
 
-import com.jtouzy.cleasy.configuration.Configuration;
+import com.jtouzy.cleasy.launch.LaunchContext;
 
 import java.util.*;
 
 public class CLProcessing {
-    private Configuration contextDescriptor;
+    private LaunchContext context;
 
-    public CLProcessing(Configuration contextDescriptor) {
-        this.contextDescriptor = contextDescriptor;
+    public CLProcessing(LaunchContext context) {
+        this.context = context;
     }
 
     public CommandDescription process(String args[])
     throws CLProcessingException {
         checkingEmptyArguments(args);
         List<String> arguments = Arrays.asList(args);
-        if (contextDescriptor.processFirstArgumentAsToolIdentifier()) {
+        if (context.getConfiguration().processFirstArgumentAsToolIdentifier()) {
             return processAsFirstArgumentIsToolIdentifier(arguments);
         }
         // TODO process other contexts
@@ -69,8 +69,8 @@ public class CLProcessing {
     }
 
     private String getParameterName(String argument) {
-        String parameterPrefix = contextDescriptor.getParameterPrefix();
-        String shortParameterPrefix = contextDescriptor.getShortParameterPrefix();
+        String parameterPrefix = context.getConfiguration().getParameterPrefix();
+        String shortParameterPrefix = context.getConfiguration().getShortParameterPrefix();
         if (argument.startsWith(parameterPrefix)) {
             return argument.substring(parameterPrefix.length());
         } else if (argument.startsWith(shortParameterPrefix)) {

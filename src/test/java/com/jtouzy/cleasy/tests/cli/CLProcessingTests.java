@@ -1,11 +1,11 @@
 package com.jtouzy.cleasy.tests.cli;
 
 import com.google.common.collect.Lists;
-import com.jtouzy.cleasy.configuration.Configuration;
-import com.jtouzy.cleasy.configuration.DefaultConfiguration;
-import com.jtouzy.cleasy.cli.CommandDescription;
 import com.jtouzy.cleasy.cli.CLProcessing;
 import com.jtouzy.cleasy.cli.CLProcessingException;
+import com.jtouzy.cleasy.cli.CommandDescription;
+import com.jtouzy.cleasy.configuration.DefaultConfiguration;
+import com.jtouzy.cleasy.launch.LaunchContext;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,13 +16,13 @@ public class CLProcessingTests {
 
     // Utility functions for testing
 
-    private Configuration getDefaultContextDescriptor() {
-        return new DefaultConfiguration();
+    private LaunchContext getDefaultContext() {
+        return new LaunchContext(new DefaultConfiguration(), Collections.emptyList());
     }
 
     private CommandDescription process(String args[])
     throws CLProcessingException {
-        CLProcessing processor = new CLProcessing(getDefaultContextDescriptor());
+        CLProcessing processor = new CLProcessing(getDefaultContext());
         return processor.process(args);
     }
 

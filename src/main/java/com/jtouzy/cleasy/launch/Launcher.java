@@ -1,18 +1,20 @@
 package com.jtouzy.cleasy.launch;
 
-import com.jtouzy.cleasy.CleasyContext;
-import com.jtouzy.cleasy.configuration.Configuration;
-import com.jtouzy.cleasy.cli.CommandDescription;
+import com.jtouzy.cleasy.cache.CacheManager;
 import com.jtouzy.cleasy.cli.CLProcessing;
 import com.jtouzy.cleasy.cli.CLProcessingException;
+import com.jtouzy.cleasy.cli.CommandDescription;
 
 public class Launcher {
+    private static final LaunchContext getDefaultLaunchContext() {
+        return new LaunchContext(CacheManager.getConfiguration(), CacheManager.getToolsRepository());
+    }
+
     public static final boolean launch(String args[]) {
         try {
-            CleasyContext.initialize();
-            Configuration configuration = CleasyContext.getConfiguration();
-            CLProcessing processor = new CLProcessing(configuration);
-            return launchFromCommandDescription(processor.process(args));
+            LaunchContext context = getDefaultLaunchContext();
+            CLProcessing processor = new CLProcessing(context);
+            return launch(processor.process(args), context);
         } catch (CLProcessingException e) {
             e.printStackTrace();
             // TODO processing exception
@@ -20,8 +22,11 @@ public class Launcher {
         }
     }
 
-    public static final boolean launchFromCommandDescription(CommandDescription commandDescription) {
-        // TODO tool context builder
-        return false;
+    public static final boolean launch(CommandDescription commandDescription) {
+        return launch(commandDescription, getDefaultLaunchContext());
+    }
+
+    public static final boolean launch(CommandDescription commandDescription, LaunchContext launchContext) {
+        return true;
     }
 }

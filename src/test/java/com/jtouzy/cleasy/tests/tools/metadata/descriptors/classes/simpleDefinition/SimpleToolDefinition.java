@@ -9,7 +9,8 @@ import com.jtouzy.cleasy.tools.metadata.annotations.CleasyToolParameter;
         description = "test_description",
         parameters = {
                 @CleasyToolParameter(id = "parameter", shortId = "short_parameter", description = "parameter_description")
-        }
+        },
+        executor = SimpleToolExecutor.class
 )
 public class SimpleToolDefinition {
 }

@@ -35,7 +35,10 @@ public class ToolDescriptorsBuilder {
         while (it.hasNext()) {
             clazz = it.next();
             CleasyTool toolAnnotation = clazz.getAnnotation(CleasyTool.class);
-            toolDescriptor = new ToolDescriptor(toolAnnotation.id(), toolAnnotation.shortId(), toolAnnotation.description());
+            toolDescriptor = new ToolDescriptor(
+                    toolAnnotation.id(), toolAnnotation.shortId(),
+                    toolAnnotation.description(), toolAnnotation.executor()
+            );
             descriptors.add(appendParameterDescriptorsIn(toolDescriptor, toolAnnotation));
         }
         return descriptors;

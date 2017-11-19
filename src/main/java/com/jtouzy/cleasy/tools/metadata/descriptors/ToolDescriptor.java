@@ -1,5 +1,7 @@
 package com.jtouzy.cleasy.tools.metadata.descriptors;
 
+import com.jtouzy.cleasy.tools.execution.Executor;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,11 +11,13 @@ public class ToolDescriptor {
     private String shortId;
     private String description;
     private List<ParameterDescriptor> parameters;
+    private Class<? extends Executor> executorClass;
 
-    public ToolDescriptor(String id, String shortId, String description) {
+    public ToolDescriptor(String id, String shortId, String description, Class<? extends Executor> executorClass) {
         this.id = id;
         this.shortId = shortId;
         this.description = description;
+        this.executorClass = executorClass;
     }
 
     private void checkParameterList() {
@@ -47,5 +51,9 @@ public class ToolDescriptor {
     public Iterator<ParameterDescriptor> getParametersIterator() {
         checkParameterList();
         return parameters.iterator();
+    }
+
+    public Class<? extends Executor> getExecutorClass() {
+        return executorClass;
     }
 }

@@ -3,8 +3,8 @@ package com.jtouzy.cleasy.tools.metadata.descriptors;
 import com.jtouzy.cleasy.tools.execution.Executor;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ToolDescriptor {
     private String id;
@@ -48,9 +48,11 @@ public class ToolDescriptor {
         return parameters.size();
     }
 
-    public Iterator<ParameterDescriptor> getParametersIterator() {
+    public List<String> getParameterIdentifiers() {
         checkParameterList();
-        return parameters.iterator();
+        List<String> identifiers = parameters.stream().map(ParameterDescriptor::getId).collect(Collectors.toList());
+        identifiers.addAll(parameters.stream().map(ParameterDescriptor::getShortId).collect(Collectors.toList()));
+        return identifiers;
     }
 
     public Class<? extends Executor> getExecutorClass() {

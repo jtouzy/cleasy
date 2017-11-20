@@ -4,6 +4,7 @@ import com.jtouzy.cleasy.cache.CacheManager;
 import com.jtouzy.cleasy.cli.CLProcessing;
 import com.jtouzy.cleasy.cli.CLProcessingException;
 import com.jtouzy.cleasy.cli.CommandDescription;
+import com.jtouzy.cleasy.tools.execution.Preprocessor;
 
 public class Launcher {
     private static final LaunchContext getDefaultLaunchContext() {
@@ -27,6 +28,8 @@ public class Launcher {
     }
 
     public static final boolean launch(CommandDescription commandDescription, LaunchContext launchContext) {
+        Preprocessor preprocessor = new Preprocessor(commandDescription, launchContext);
+        preprocessor.run();
         return true;
     }
 }

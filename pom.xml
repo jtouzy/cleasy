@@ -30,9 +30,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.reflections</groupId>
-      <artifactId>reflections</artifactId>
-      <version>0.9.11</version>
+      <groupId>org.atteo.classindex</groupId>
+      <artifactId>classindex</artifactId>
+      <version>3.3</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

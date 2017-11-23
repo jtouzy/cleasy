@@ -1,6 +1,5 @@
 package com.jtouzy.cleasy.tests.cli;
 
-import com.google.common.collect.Lists;
 import com.jtouzy.cleasy.cli.CLProcessing;
 import com.jtouzy.cleasy.cli.CLProcessingException;
 import com.jtouzy.cleasy.cli.CommandDescription;
@@ -9,6 +8,7 @@ import com.jtouzy.cleasy.launch.LaunchContext;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,18 +41,18 @@ public class CLProcessingTests {
 
     @Test(expected = CLProcessingException.class)
     public void testWithFirstToolAndOneArgumentWithNoParameterName() throws CLProcessingException {
-        process(toArray(Lists.newArrayList("toolName", "error")));
+        process(toArray(Arrays.asList("toolName", "error")));
     }
 
     @Test
     public void testCountWithOneSimpleArgument() throws CLProcessingException {
-        CommandDescription result = process(toArray(Lists.newArrayList("toolName", "-t", "t_value")));
+        CommandDescription result = process(toArray(Arrays.asList("toolName", "-t", "t_value")));
         Assert.assertEquals(1, result.getParameters().keySet().size());
     }
 
     @Test
     public void testWithOneSimpleArgument() throws CLProcessingException {
-        CommandDescription result = process(toArray(Lists.newArrayList("toolName", "-t", "t_value")));
+        CommandDescription result = process(toArray(Arrays.asList("toolName", "-t", "t_value")));
         Assert.assertEquals("t", result.getParameters().keySet().iterator().next());
         Assert.assertEquals("t_value", result.getParameters().get("t"));
     }
@@ -61,6 +61,6 @@ public class CLProcessingTests {
 
     @Test(expected = CLProcessingException.class)
     public void testWithFirstToolAndOneSimpleArgumentAndSecondArgumentWithNoParameterName() throws CLProcessingException {
-        process(toArray(Lists.newArrayList("toolName", "-t", "t_value", "error")));
+        process(toArray(Arrays.asList("toolName", "-t", "t_value", "error")));
     }
 }

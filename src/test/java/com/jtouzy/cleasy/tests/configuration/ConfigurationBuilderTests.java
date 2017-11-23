@@ -11,7 +11,7 @@ public class ConfigurationBuilderTests {
     private static final String testClasses = "com.jtouzy.cleasy.tests.configuration.classes";
 
     public void scanAndExpectException(String scanPackage, String exceptionMessage) {
-        ConfigurationBuilder.setScanPackage(scanPackage);
+        //ConfigurationBuilder.setScanPackage(scanPackage);
         try {
             ConfigurationBuilder.build();
             Assert.fail("ConfigurationException should be thrown");
@@ -22,7 +22,7 @@ public class ConfigurationBuilderTests {
 
     @Test
     public void testWithNoConfigurationClassProvided() {
-        ConfigurationBuilder.setScanPackage(testClasses + ".noConfigurationClassPackage");
+        //ConfigurationBuilder.setScanPackage(testClasses + ".noConfigurationClassPackage");
         Configuration configuration = ConfigurationBuilder.build();
         Assert.assertEquals(ConfigurationBuilder.getDefaultConfiguration(), configuration);
     }
@@ -41,7 +41,7 @@ public class ConfigurationBuilderTests {
 
     @Test
     public void testWithSimpleConfiguration() {
-        ConfigurationBuilder.setScanPackage(testClasses + ".simpleConfiguration");
+        //ConfigurationBuilder.setScanPackage(testClasses + ".simpleConfiguration");
         Configuration configuration = ConfigurationBuilder.build();
         Assert.assertEquals(SimpleConfiguration.class, configuration.getClass());
     }

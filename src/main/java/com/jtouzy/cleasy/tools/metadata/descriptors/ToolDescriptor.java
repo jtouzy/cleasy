@@ -3,6 +3,7 @@ package com.jtouzy.cleasy.tools.metadata.descriptors;
 import com.jtouzy.cleasy.tools.execution.Executor;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,11 @@ public class ToolDescriptor {
     public int getParametersCount() {
         checkParameterList();
         return parameters.size();
+    }
+
+    public Iterator<ParameterDescriptor> getParametersIterator() {
+        checkParameterList();
+        return parameters.iterator();
     }
 
     public List<String> getParameterIdentifiers() {

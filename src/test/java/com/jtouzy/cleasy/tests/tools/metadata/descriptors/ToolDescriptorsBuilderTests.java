@@ -92,8 +92,7 @@ public class ToolDescriptorsBuilderTests {
 
     @Test
     public void testWithSimpleDefinitionExpectedExecutorClass() {
-        CleasyTool annotation = getSimpleToolDefinitionAnnotation();
         ToolDescriptor descriptor = getSimpleToolDefinition();
-        Assert.assertEquals(annotation.executor(), descriptor.getExecutorClass());
+        Assert.assertEquals(SimpleToolDefinition.class, descriptor.getExecutorClass());
     }
 }

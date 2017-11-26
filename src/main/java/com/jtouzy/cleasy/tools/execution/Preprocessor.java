@@ -55,7 +55,7 @@ public class Preprocessor {
     public void startProcessing(ToolDescriptor toolDescriptor) {
         ExecutionContext context = new ExecutionContext(
                 launchContext.getConfiguration(), toolDescriptor, commandDescription.getParameters());
-        Class<? extends Executor> executorClass = toolDescriptor.getExecutorClass();
+        Class<?> executorClass = toolDescriptor.getExecutorClass();
         try {
             Constructor constructor = executorClass.getConstructor(ExecutionContext.class);
             Executor executor = (Executor)constructor.newInstance(context);

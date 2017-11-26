@@ -12,6 +12,10 @@ public abstract class AbstractExecutor implements Executor {
         this.context = context;
     }
 
+    public ExecutionContext getContext() {
+        return context;
+    }
+
     public Configuration getConfiguration() {
         return context.getConfiguration();
     }

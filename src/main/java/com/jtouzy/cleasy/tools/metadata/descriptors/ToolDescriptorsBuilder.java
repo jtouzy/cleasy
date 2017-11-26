@@ -2,7 +2,7 @@ package com.jtouzy.cleasy.tools.metadata.descriptors;
 
 import com.jtouzy.cleasy.tools.metadata.annotations.CleasyTool;
 import com.jtouzy.cleasy.tools.metadata.annotations.CleasyToolParameter;
-import org.atteo.classindex.ClassIndex;
+import com.jtouzy.cleasy.utils.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public class ToolDescriptorsBuilder {
     }
 
     public static final List<ToolDescriptor> build() {
-        Iterable<Class<?>> classes = ClassIndex.getAnnotated(CleasyTool.class);
+        Iterable<Class<?>> classes = ClassUtils.getClassesAnnotatedWith(CleasyTool.class, scanPackage);
         if (!classes.iterator().hasNext()) {
             throw new ToolDescriptionException("No tool description found in classpath.");
         } else {

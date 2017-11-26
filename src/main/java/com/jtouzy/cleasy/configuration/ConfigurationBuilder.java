@@ -1,18 +1,23 @@
 package com.jtouzy.cleasy.configuration;
 
-import org.atteo.classindex.ClassIndex;
+import com.jtouzy.cleasy.utils.ClassUtils;
 
 import java.util.Iterator;
 
 public class ConfigurationBuilder {
+    private static String scanPackage;
     private static final Configuration defaultConfiguration = new DefaultConfiguration();
+
+    public static final void setScanPackage(String scanPackage) {
+        ConfigurationBuilder.scanPackage = scanPackage;
+    }
 
     public static final Configuration getDefaultConfiguration() {
         return defaultConfiguration;
     }
 
     public static final Configuration build() {
-        Iterable<Class<?>> classes = ClassIndex.getAnnotated(CleasyConfiguration.class);
+        Iterable<Class<?>> classes = ClassUtils.getClassesAnnotatedWith(CleasyConfiguration.class, scanPackage);
         if (!classes.iterator().hasNext()) {
             return defaultConfiguration;
         } else {

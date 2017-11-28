@@ -59,6 +59,7 @@ public class Preprocessor {
         try {
             Constructor constructor = executorClass.getConstructor(ExecutionContext.class);
             Executor executor = (Executor)constructor.newInstance(context);
+            executor.validateArguments(context);
             executor.execute();
         } catch (NoSuchMethodException e) {
             throw new PreprocessingException("A constructor with an ExecutionContext parameter must be present");

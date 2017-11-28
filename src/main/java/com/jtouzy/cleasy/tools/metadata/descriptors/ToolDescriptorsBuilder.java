@@ -48,7 +48,8 @@ public class ToolDescriptorsBuilder {
         while (it.hasNext()) {
             parameterAnnotation = it.next();
             toolDescriptor.addParameter(new ParameterDescriptor(
-                    parameterAnnotation.id(), parameterAnnotation.shortId(), parameterAnnotation.description()));
+                    parameterAnnotation.id(), parameterAnnotation.shortId(),
+                    parameterAnnotation.description(), parameterAnnotation.required()));
         }
         return toolDescriptor;
     }

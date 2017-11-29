@@ -2,7 +2,6 @@ package com.jtouzy.cleasy.launch;
 
 import com.jtouzy.cleasy.cache.CacheManager;
 import com.jtouzy.cleasy.cli.CLProcessing;
-import com.jtouzy.cleasy.cli.CLProcessingException;
 import com.jtouzy.cleasy.cli.CommandDescription;
 import com.jtouzy.cleasy.tools.execution.Preprocessor;
 
@@ -12,22 +11,24 @@ public class Launcher {
     }
 
     public static final boolean launch(String args[]) {
+        LaunchContext context = getDefaultLaunchContext();
         try {
-            LaunchContext context = getDefaultLaunchContext();
+            context.getConfiguration().getPrinter().logHeader();
             CLProcessing processor = new CLProcessing(context);
             return launch(processor.process(args), context);
-        } catch (CLProcessingException e) {
-            e.printStackTrace();
-            // TODO processing exception
+        } catch (Throwable e) {
+            context.getConfiguration().getPrinter().logCommandException(e);
             return false;
         }
     }
 
-    public static final boolean launch(CommandDescription commandDescription) {
+    public static final boolean launch(CommandDescription commandDescription)
+    throws Exception {
         return launch(commandDescription, getDefaultLaunchContext());
     }
 
-    public static final boolean launch(CommandDescription commandDescription, LaunchContext launchContext) {
+    public static final boolean launch(CommandDescription commandDescription, LaunchContext launchContext)
+    throws Exception {
         Preprocessor preprocessor = new Preprocessor(commandDescription, launchContext);
         preprocessor.run();
         return true;

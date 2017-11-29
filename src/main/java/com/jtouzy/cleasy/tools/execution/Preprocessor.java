@@ -20,7 +20,8 @@ public class Preprocessor {
         this.launchContext = launchContext;
     }
 
-    public void run() {
+    public void run()
+    throws Exception {
         ToolDescriptor toolDescriptor = checkExecutedTool();
         validateCommandDescription(toolDescriptor);
         startProcessing(toolDescriptor);
@@ -52,15 +53,16 @@ public class Preprocessor {
         }
     }
 
-    public void startProcessing(ToolDescriptor toolDescriptor) {
+    public void startProcessing(ToolDescriptor toolDescriptor)
+    throws Exception {
         ExecutionContext context = new ExecutionContext(
                 launchContext.getConfiguration(), toolDescriptor, commandDescription.getParameters());
         Class<?> executorClass = toolDescriptor.getExecutorClass();
+        Executor executor;
         try {
             Constructor constructor = executorClass.getConstructor(ExecutionContext.class);
-            Executor executor = (Executor)constructor.newInstance(context);
+            executor = (Executor)constructor.newInstance(context);
             executor.validateArguments(context);
-            executor.execute();
         } catch (NoSuchMethodException e) {
             throw new PreprocessingException("A constructor with an ExecutionContext parameter must be present");
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
@@ -68,5 +70,6 @@ public class Preprocessor {
         } catch (ClassCastException e) {
             throw new PreprocessingException("The executor class must implements com.jtouzy.tools.execution.Executor interface");
         }
+        executor.execute();
     }
 }

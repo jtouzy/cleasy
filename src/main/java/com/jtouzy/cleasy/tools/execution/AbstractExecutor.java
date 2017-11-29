@@ -55,5 +55,5 @@ public abstract class AbstractExecutor implements Executor {
     }
 
     @Override
-    public abstract void execute();
+    public abstract void execute() throws Exception;
 }

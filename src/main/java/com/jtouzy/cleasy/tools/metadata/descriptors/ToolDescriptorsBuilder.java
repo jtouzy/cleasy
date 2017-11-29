@@ -28,15 +28,27 @@ public class ToolDescriptorsBuilder {
     private static final List<ToolDescriptor> buildDescriptors(Iterable<Class<?>> annotatedClasses) {
         List<ToolDescriptor> descriptors = new ArrayList<>();
         Iterator<Class<?>> it = annotatedClasses.iterator();
+        List<String> idList = new ArrayList<>();
+        List<String> shortIdList = new ArrayList<>();
+        String id;
+        String shortId;
         Class<?> clazz;
         ToolDescriptor toolDescriptor;
+        CleasyTool toolAnnotation;
         while (it.hasNext()) {
             clazz = it.next();
-            CleasyTool toolAnnotation = clazz.getAnnotation(CleasyTool.class);
-            toolDescriptor = new ToolDescriptor(
-                toolAnnotation.id(), toolAnnotation.shortId(),
-                toolAnnotation.description(), clazz
-            );
+            toolAnnotation = clazz.getAnnotation(CleasyTool.class);
+            id = toolAnnotation.id();
+            shortId = toolAnnotation.shortId();
+            if (idList.contains(id)) {
+                throw new ToolDescriptionException("Multiple tools have the same id [" + id + "]");
+            }
+            idList.add(id);
+            if (shortIdList.contains(shortId)) {
+                throw new ToolDescriptionException("Multiple tools have the same short-id [" + shortId + "]");
+            }
+            shortIdList.add(shortId);
+            toolDescriptor = new ToolDescriptor(id, shortId, toolAnnotation.description(), clazz);
             descriptors.add(appendParameterDescriptorsIn(toolDescriptor, toolAnnotation));
         }
         return descriptors;

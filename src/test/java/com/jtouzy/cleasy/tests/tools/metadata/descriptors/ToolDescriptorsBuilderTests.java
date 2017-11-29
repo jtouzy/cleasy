@@ -32,9 +32,31 @@ public class ToolDescriptorsBuilderTests {
         try {
             ToolDescriptorsBuilder.setScanPackage(testClasses + ".noToolsPackage");
             ToolDescriptorsBuilder.build();
-            Assert.fail("ToolDescriptionException should be thrown");
+            Assert.fail("ToolDescriptionException should be thrown if no tools are defined in classpath");
         } catch (ToolDescriptionException ex) {
             Assert.assertEquals("No tool description found in classpath.", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testWithMultipleSameToolId() {
+        try {
+            ToolDescriptorsBuilder.setScanPackage(testClasses + ".multipleSameId");
+            ToolDescriptorsBuilder.build();
+            Assert.fail("ToolDescriptionException should be thrown if multiple tools have the same id");
+        } catch (ToolDescriptionException ex) {
+            Assert.assertEquals("Multiple tools have the same id [basic]", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testWithMultipleSameToolShortId() {
+        try {
+            ToolDescriptorsBuilder.setScanPackage(testClasses + ".multipleSameShortId");
+            ToolDescriptorsBuilder.build();
+            Assert.fail("ToolDescriptionException should be thrown if multiple tools have the same short id");
+        } catch (ToolDescriptionException ex) {
+            Assert.assertEquals("Multiple tools have the same short-id [basic]", ex.getMessage());
         }
     }
 

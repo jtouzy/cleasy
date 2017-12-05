@@ -61,6 +61,28 @@ public class ToolDescriptorsBuilderTests {
     }
 
     @Test
+    public void testWithMultipleSameParameterId() {
+        try {
+            ToolDescriptorsBuilder.setScanPackage(testClasses + ".paramMultipleSameId");
+            ToolDescriptorsBuilder.build();
+            Assert.fail("ToolDescriptionException should be thrown if multiple parameters have the same id");
+        } catch (ToolDescriptionException ex) {
+            Assert.assertEquals("Multiple parameters have the same id [parameter]", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testWithMultipleSameParameterShortId() {
+        try {
+            ToolDescriptorsBuilder.setScanPackage(testClasses + ".paramMultipleSameShortId");
+            ToolDescriptorsBuilder.build();
+            Assert.fail("ToolDescriptionException should be thrown if multiple parameters have the same id");
+        } catch (ToolDescriptionException ex) {
+            Assert.assertEquals("Multiple parameters have the same short-id [short_parameter]", ex.getMessage());
+        }
+    }
+
+    @Test
     public void testWithSimpleDefinitionExpectedId() {
         CleasyTool annotation = getSimpleToolDefinitionAnnotation();
         ToolDescriptor descriptor = getSimpleToolDefinition();

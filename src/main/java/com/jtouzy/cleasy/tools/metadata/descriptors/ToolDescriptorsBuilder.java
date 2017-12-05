@@ -56,11 +56,24 @@ public class ToolDescriptorsBuilder {
 
     private static final ToolDescriptor appendParameterDescriptorsIn(ToolDescriptor toolDescriptor, CleasyTool annotation) {
         Iterator<CleasyToolParameter> it = Arrays.asList(annotation.parameters()).iterator();
+        List<String> idList = new ArrayList<>();
+        List<String> shortIdList = new ArrayList<>();
+        String id;
+        String shortId;
         CleasyToolParameter parameterAnnotation;
         while (it.hasNext()) {
             parameterAnnotation = it.next();
-            toolDescriptor.addParameter(new ParameterDescriptor(
-                    parameterAnnotation.id(), parameterAnnotation.shortId(),
+            id = parameterAnnotation.id();
+            shortId = parameterAnnotation.shortId();
+            if (idList.contains(id)) {
+                throw new ToolDescriptionException("Multiple parameters have the same id [" + id + "]");
+            }
+            idList.add(id);
+            if (shortIdList.contains(shortId)) {
+                throw new ToolDescriptionException("Multiple parameters have the same short-id [" + shortId + "]");
+            }
+            shortIdList.add(shortId);
+            toolDescriptor.addParameter(new ParameterDescriptor(id, shortId,
                     parameterAnnotation.description(), parameterAnnotation.required()));
         }
         return toolDescriptor;

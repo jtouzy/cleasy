@@ -54,6 +54,33 @@ public abstract class AbstractExecutor implements Executor {
         }
     }
 
+    public void print(String log) {
+        getConfiguration().getPrinter().log(log);
+    }
+
+    public void printAndIncrease(String log) {
+        print(log);
+        increasePrinting();
+    }
+
+    public void printAndDecrease(String log) {
+        print(log);
+        decreasePrinting();
+    }
+
+    public void decreasePrintAndIncrease(String log) {
+        decreasePrinting();
+        printAndIncrease(log);
+    }
+
+    public void increasePrinting() {
+        getConfiguration().getPrinter().increase();
+    }
+
+    public void decreasePrinting() {
+        getConfiguration().getPrinter().decrease();
+    }
+
     @Override
     public abstract void execute() throws Exception;
 }

@@ -2,7 +2,6 @@ package com.jtouzy.cleasy.output;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class DefaultPrinter implements Printer {
@@ -44,16 +43,30 @@ public class DefaultPrinter implements Printer {
 
     @Override
     public void logCommandException(Throwable error) {
-        String message = Optional.ofNullable(error.getMessage()).orElse(error.getClass().toString());
-        title("Error during command execution : " + message);
+        currentLevel = 0;
+        title("Error during command execution");
         increase();
-        log("Detail :");
-        increase();
-        for (StackTraceElement elm : error.getStackTrace()) {
-            log("at " + elm.getClassName() + ":" + elm.getMethodName() + ":(" + elm.getLineNumber() + ")");
+        Throwable currentThrowable = error;
+        while (currentThrowable != null) {
+            log((currentThrowable == error ? "Detail :" : "Caused by :") + getThrowableMessage(currentThrowable));
+            increase();
+            for (StackTraceElement elm : currentThrowable.getStackTrace()) {
+                log("at " + elm.getClassName() + ":" + elm.getMethodName() + ":(" + elm.getLineNumber() + ")");
+            }
+            decrease();
+            currentThrowable = currentThrowable.getCause();
         }
         decrease();
-        decrease();
+    }
+
+    private String getThrowableMessage(Throwable error) {
+        StringBuilder message = new StringBuilder(" [")
+                .append(error.getClass().getName())
+                .append("]");
+        if (error.getMessage() != null) {
+            message.append(" - ").append(error.getMessage());
+        }
+        return message.toString();
     }
 
     protected StringBuilder getLevelPrefix() {
